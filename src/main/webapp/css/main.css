@@ -13,3 +13,9 @@ ul {
     text-decoration: line-through;
     color: gray;
 }
+
+legend > em {
+    font-weight: bold;
+    font-style: normal;
+    color: forestgreen;
+}

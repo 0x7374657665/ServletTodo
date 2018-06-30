@@ -13,21 +13,25 @@
 <body>
 <div id="content">
     <h1>TODO:</h1>
-    <fieldset>
-        <legend>You have <em>${todos.size()}</em> things to do.</legend>
-        <ul>
-            <c:forEach items="${todos}" var="todo">
+    <form name="todoForm" action="add" method="post">
+        <fieldset>
+            <legend>You have <em>${todos.size()}</em> things to do.</legend>
+            <ul>
+                <c:forEach items="${todos}" var="todo">
+                    <li>
+                        <input type="checkbox" ${todo.done ? 'checked' : ''}>
+                        <input name="done-${todo.id}" type="hidden" value="${todo.done}">
+                        <span class="${todo.done ? "done" : ""}">${todo.text}</span>
+                        <input type="hidden" name="text-${todo.id}" value="${todo.text}">
+                    </li>
+                </c:forEach>
+                <hr>
                 <li>
-                    <input type="checkbox" ${todo.done ? 'checked' : ''}>
-                    <span class="${todo.done ? "done" : ""}">${todo.text}</span>
+                    <input type="text" placeholder="next thing to do..." name="newTodo">
                 </li>
-            </c:forEach>
-            <hr>
-            <li>
-                <input type="text" placeholder="next thing todo...">
-            </li>
-        </ul>
-    </fieldset>
+            </ul>
+        </fieldset>
+    </form>
 </div>
 </body>
 </html>
