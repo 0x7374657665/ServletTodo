@@ -16,5 +16,4 @@
 		<param-name>loadExampleDB</param-name>
 		<param-value>true</param-value>
 	</context-param>
-
 </web-app>

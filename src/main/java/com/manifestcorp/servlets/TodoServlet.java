@@ -14,7 +14,7 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/")
+@WebServlet("")
 public class TodoServlet extends HttpServlet {
 
     @Resource(name = "jdbc/todoDS")
