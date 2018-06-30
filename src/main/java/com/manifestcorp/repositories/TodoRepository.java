@@ -3,10 +3,12 @@ package com.manifestcorp.repositories;
 import com.manifestcorp.models.Todo;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,5 +33,37 @@ public class TodoRepository {
         }
 
         return todos;
+    }
+
+    public void mergeTodos(List<Todo> todos) {
+
+        String mergeQuery = "merge into todo key (id) values (?,?,?)";
+        Object[][] mergeValues = new Object[todos.size()][3];
+        for (int i = 0; i < todos.size(); i++) {
+            Todo todo = todos.get(i);
+            mergeValues[i] = new Object[]{todo.getId(), todo.getText(), todo.isDone()};
+        }
+
+        try {
+            runner.batch(mergeQuery, mergeValues);
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Encountered SQL exception while merging todos: ", e);
+        }
+    }
+
+    public void mergeTodo(Todo todo) {
+        mergeTodos(Arrays.asList(new Todo[] {todo}));
+    }
+
+    public int addTodo(String newTodo) {
+        String insertQuery = "insert into todo (text,done) values (?,?)";
+        int key = -1;
+        try {
+            key = runner.insert(insertQuery, new ScalarHandler<Integer>(), newTodo, false);
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Encountered SQL exception inserting todo '" + newTodo + "'", e);
+        }
+
+        return key;
     }
 }
