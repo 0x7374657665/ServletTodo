@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,23 +28,29 @@ public class ExampleDataLoader implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
 
-        QueryRunner runner = new QueryRunner(DbConnector.getDataSource());
+        Optional<String> loadExampleDbParam = Optional.ofNullable(sce.getServletContext().getInitParameter("loadExampleDB"));
+        boolean loadExampleData = loadExampleDbParam.isPresent() && loadExampleDbParam.get().equalsIgnoreCase("true");
 
-        try {
-            String createTableQuery = "CREATE TABLE TODO(id int primary key auto_increment, text varchar(255), done boolean)";
-            runner.update(createTableQuery);
 
-            String insertDataQuery = "INSERT INTO TODO(text, done) values (?,?)";
-            runner.batch(insertDataQuery,new Object[][] {
-                    {"prepare Servlet Class", false},
-                    {"Set up in-memory H2 as tomcat JNDI resource", true},
-                    {"Make code available on github", false}
-            });
+        if(loadExampleData) {
+            QueryRunner runner = new QueryRunner(DbConnector.getDataSource());
 
-        } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Could not populate example database on app startup", e);
+            try {
+                String createTableQuery = "CREATE TABLE TODO(id int primary key auto_increment, text varchar(255), done boolean)";
+                runner.update(createTableQuery);
+
+                String insertDataQuery = "INSERT INTO TODO(text, done) values (?,?)";
+                runner.batch(insertDataQuery,new Object[][] {
+                        {"prepare Servlet Class", false},
+                        {"Set up in-memory H2 as tomcat JNDI resource", true},
+                        {"Make code available on github", false}
+                });
+
+            } catch (SQLException e) {
+                LOGGER.log(Level.SEVERE, "Could not populate example database on app startup", e);
+            }
         }
-     }
+    }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {

@@ -5,11 +5,16 @@
 	
 	<resource-ref>
 	  <description>
-	    Embedded (in Tomcat) H2 database--will be wiped out whenever Tomcat restarts
+	    An H2 database to be used for storing application data.
 	  </description>
 	  <res-ref-name>jdbc/TodoDB</res-ref-name>
 	  <res-type>javax.sql.DataSource</res-type>
 	  <res-auth>Container</res-auth>
 	</resource-ref>
+
+	<context-param>
+		<param-name>loadExampleDB</param-name>
+		<param-value>true</param-value>
+	</context-param>
 
 </web-app>
