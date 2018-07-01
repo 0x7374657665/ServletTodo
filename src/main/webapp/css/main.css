@@ -4,12 +4,11 @@ ul {
     padding: 0;
 }
 
-#content {
-    width: 80rem;
-    margin:  5em auto;
-}
-
 .done {
     text-decoration: line-through;
     color: gray;
+}
+
+.changed {
+    font-weight: bold;
 }

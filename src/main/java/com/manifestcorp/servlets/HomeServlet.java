@@ -12,11 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.util.Enumeration;
 import java.util.List;
 
 @WebServlet("")
-public class TodoServlet extends HttpServlet {
+public class HomeServlet extends HttpServlet {
 
     @Resource(name = "jdbc/todoDS")
     private DataSource ds;

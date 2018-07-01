@@ -24,9 +24,9 @@ public class AddTodoServlet extends HttpServlet {
 
         //sift through request parameters to dig out form data and populate todos list
         Enumeration<String> parameterNames = req.getParameterNames();
-        while(parameterNames.hasMoreElements()) {
+        while (parameterNames.hasMoreElements()) {
             String key = parameterNames.nextElement();
-            if(key.startsWith("done-")) {
+            if (key.startsWith("done-")) {
                 int id = Integer.parseInt(key.substring(5));
                 boolean done = Boolean.parseBoolean(req.getParameter(key));
                 String text = req.getParameter("text-" + id);
@@ -36,7 +36,12 @@ public class AddTodoServlet extends HttpServlet {
 
         TodoRepository todoRepo = new TodoRepository(ds);
         todoRepo.mergeTodos(todos);
-        todoRepo.addTodo(req.getParameter("newTodo"));
+
+        String newTodoText = req.getParameter("newTodo");
+        if (!newTodoText.isEmpty()) {
+            todoRepo.addTodo(newTodoText);
+        }
+
 
         res.sendRedirect(req.getContextPath());
     }

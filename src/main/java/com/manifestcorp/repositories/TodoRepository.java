@@ -52,7 +52,7 @@ public class TodoRepository {
     }
 
     public void mergeTodo(Todo todo) {
-        mergeTodos(Arrays.asList(new Todo[] {todo}));
+        mergeTodos(Arrays.asList(new Todo[]{todo}));
     }
 
     public int addTodo(String newTodo) {
@@ -65,5 +65,27 @@ public class TodoRepository {
         }
 
         return key;
+    }
+
+    public void clearDone() {
+        String clearQuery = "delete from todo where done = true";
+        try {
+            runner.update(clearQuery);
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Encountered SQL exception clearing done todos", e);
+        }
+    }
+
+    public List<Todo> getDoneTodos() {
+        List<Todo> todos = new ArrayList<>();
+        BeanListHandler<Todo> todosTemplate = new BeanListHandler<>(Todo.class);
+
+        try {
+            todos = runner.query("select * from todo where done = true", todosTemplate);
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Encountered SQL exception while retrieving todos: ", e);
+        }
+
+        return todos;
     }
 }
