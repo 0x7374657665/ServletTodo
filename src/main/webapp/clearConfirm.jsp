@@ -6,9 +6,9 @@
 </head>
 <body>
 <h1>Confirm:</h1>
-<form action="clear" method="post">
+<form action="clear" method="post" id="clearForm">
     <p>You are about to delete the items listed below. Continue?</p>
-    <button type="submit">DELETE</button>&nbsp;<button onclick="history.back()">CANCEL</button>
+    <button type="submit">DELETE</button>&nbsp;<button type="button" onclick="window.location = '${pageContext.request.contextPath}'">CANCEL</button>
 </form>
 <hr>
 <ul>
