@@ -40,10 +40,3 @@ Next we need to instruct Tomcat to make this data source available to our app as
               name="jdbc/todoDS" 
               type="javax.sql.DataSource"/>
 ```
-
-## Setting up STS to use Tomcat as configured
-After using Spring Tools Suite to import the todo app as an exiting project and deploying it to your Tomcat server in the usual way, you may discover that the app is throwing exceptions or failing to deploy because STS is using its own internal Tomcat configuration and ignoring yours
-
-To fix this issue, right-click on the Tomcat server entry in the Servers panel and go to its properties. You will see a configuration screen where you can choose the location of the Tomcat configuration to use. Click Switch Location button to cycle through different options until you see your Tomcat server.
-![image](screenshots/switchLocation.png)
-
