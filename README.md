@@ -1,10 +1,10 @@
 # Todo With Servlets
 This is a simple TODO app implemented with pure servlet 3.1 and a dash of vanilla javascript and some H2 SQL.
 
-## Deploying locally
+## Building locally
 Clone this repository into a convenient location then navigate to the root of the project directory from the command line and execute
 ```bash
-$ mvn package
+$ ./mvnw package
 ```
 This will produce an artifact called `todo.war` in the target directory which you can deploy to the servlet 3.1 container of your choice.
 
