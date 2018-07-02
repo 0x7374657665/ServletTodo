@@ -1,5 +1,5 @@
 # Todo With Servlets
-This is a simple TODO app implemented with pure servlet 3.1 and a dash of vanilla javascript and some H2 SQL.
+This is a simple TODO app implemented with pure servlet 3.1 (with a dash of vanilla javascript and some H2 SQL).
 
 ## Building locally
 Clone this repository into a convenient location then navigate to the root of the project directory from the command line and execute
