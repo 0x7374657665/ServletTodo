@@ -41,9 +41,9 @@ public class ExampleDataLoader implements ServletContextListener {
 
                 String insertDataQuery = "INSERT INTO TODO(text, done) values (?,?)";
                 runner.batch(insertDataQuery,new Object[][] {
-                        {"prepare Servlet Class", false},
-                        {"Set up in-memory H2 as tomcat JNDI resource", true},
-                        {"Make code available on github", false}
+                        {"Walk dog", false},
+                        {"Get groceries", true},
+                        {"Mow lawn", false}
                 });
 
             } catch (SQLException e) {
